@@ -33,7 +33,7 @@ async function getRPCData() {
 }
 
 rpc.on('ready', async () => {
-    console.log('✅ Custom Hanime RPC client is running!');
+    console.log('Custom Hanime RPC client is running!');
 
     const update = async () => {
         const activity = await getRPCData();
@@ -45,3 +45,4 @@ rpc.on('ready', async () => {
 });
 
 rpc.login({ clientId }).catch(console.error);
+
