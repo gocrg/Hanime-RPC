@@ -1,0 +1,17 @@
+{
+  "name": "Hanime.tv RPC",
+  "url_match": "https://hanime.tv/*",
+  "details": "Watching {anime_title}",
+  "state": "{episode_info} • {progress}",
+  "large_image": "R (1).jpg",
+  "large_text": "Hanime.tv",
+  "small_image": "{anime_thumbnail}",
+  "small_text": "Watching now",
+  "buttons": [
+    {
+      "label": "Go to Hanime",
+      "url": "https://hanime.tv"
+    }
+  ],
+  "script": "const rawTitle = document.title || '';\nconst anime_title = rawTitle.replace(/ - Hanime\\.tv$/i, '').replace(/Episode\\s*\\d+/i, '').trim();\nconst epMatch = rawTitle.match(/Episode\\s*(\\d+)/i) || rawTitle.match(/Part\\s*(\\d+)/i) || rawTitle.match(/OVA/i);\nconst episode_info = epMatch ? epMatch[0] : 'Hanime.tv';\nconst video = document.querySelector('video');\nlet progress = '0:00';\nif(video){ const current = Math.floor(video.currentTime); const duration = Math.floor(video.duration); const formatTime = t => `${Math.floor(t/60)}:${('0'+(t%60)).slice(-2)}`; progress = `${formatTime(current)} / ${formatTime(duration)}`; }\nconst poster = video?.getAttribute('poster');\nconst metaThumbnail = document.querySelector('meta[property=\"og:image\"]')?.content;\nconst anime_thumbnail = poster || metaThumbnail || 'ssssss.jpg';\n({anime_title, episode_info, progress, anime_thumbnail});"
+}
